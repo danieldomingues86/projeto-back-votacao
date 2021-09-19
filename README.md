@@ -13,6 +13,10 @@ o uso excessivo de frameworks paralelos e também com o uso do Spring Boot evita
 deixando toda essa responsabilidade para o próprio Spring e para o servidor/docker onde a aplicação será implantada. 
 Assim o projeto pode subir de forma stand-alone e podendo ser usado como mencionada dentro de um docker por exemplo, facilitando assim a escalabilidade dela, caso necessário.
 
+Logging: Também aproveitando a suite de ferramentas que o Spring oferece foi utilizado o próprio mecanismo de logs dele evitando adionar mais libs ao projeto,
+por ser um projeto pequeno e leve não há a necessidade de um framework mais complexo de logs, sendo que o do proprio Spring já funciona bem nesse cenário.
+
+
 
 **Boas práticas de programação**
 
