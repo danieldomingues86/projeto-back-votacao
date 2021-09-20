@@ -1,0 +1,203 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Projeto Back Votação",
+		"_postman_id": "c960570e-a152-49bd-1441-8cdf1aa25c60",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Criar Pauta",
+			"request": {
+				"url": "http://localhost:8080/pautas/cadastrarPauta",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"assunto\" : \"Voce é a favor da diminuição de impostos?\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Pautas",
+			"request": {
+				"url": "http://localhost:8080/pautas/listarPautas",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"assunto\":\"teste\"\n\t\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Ativar Pauta para votação",
+			"request": {
+				"url": "http://localhost:8080/pautas/contabilizarVotos/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "id",
+						"value": "1111",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Votar na Pauta",
+			"request": {
+				"url": "http://localhost:8080/pautas/votarNaPauta/1",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"cpf\":34234234\",\n\t\"voto\":\"Sim\"\n\t\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Contabilizar Resultado da Pauta",
+			"request": {
+				"url": "http://localhost:8080/pautas/contabilizarVotos/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "id",
+						"value": "1111",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Criar Pauta (Heroku)",
+			"request": {
+				"url": "https://projeto-back-votos-api.herokuapp.com/pautas/cadastrarPauta",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"assunto\":\"Voce é a favor da diminuição de impostos?\"\n\t\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Pautas (Heroku)",
+			"request": {
+				"url": "https://projeto-back-votos-api.herokuapp.com/pautas/listarPautas",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"assunto\":\"teste\"\n\t\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Ativar Pauta para votação (Heroku)",
+			"request": {
+				"url": "https://projeto-back-votos-api.herokuapp.com/pautas/ativarPauta/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "id",
+						"value": "1111",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Votar na Pauta (Heroku)",
+			"request": {
+				"url": "https://projeto-back-votos-api.herokuapp.com/pautas/votarNaPauta/1",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"cpf\":\"62728232075\",\n\t\"voto\":\"Sim\"\n\t\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Contabilizar Resultado da Pauta (Heroku)",
+			"request": {
+				"url": "https://projeto-back-votos-api.herokuapp.com/pautas/contabilizarVotos/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "id",
+						"value": "1111",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
