@@ -11,4 +11,7 @@ public interface Associados extends JpaRepository<Associado, Long> {
     @Query("SELECT obj FROM Associado obj WHERE obj.cpf =:cpf")
     Optional<Associado> findByCpf(Long cpf);
 
+    @Query("SELECT COUNT(*) FROM Associado obj WHERE obj.voto =:side AND obj.pauta.id =:idPauta")
+    Integer totalResults(String side, Long idPauta);
+
 }

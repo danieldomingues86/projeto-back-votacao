@@ -1,5 +1,6 @@
 package br.com.south.system.resource;
 
+import br.com.south.system.dto.ResultadoPautaDTO;
 import br.com.south.system.exception.pauta.PautaMalFormedException;
 import br.com.south.system.exception.pauta.PautaNotFoundException;
 import br.com.south.system.exception.pauta.PautaNotInformedException;
@@ -115,9 +116,20 @@ public class PautasResource {
         return false;
     }
 
-    @GetMapping("/resultadoPauta/{id}")
-    public Pauta resultadoPauta(@PathVariable Long id) {
-        return pautas.findById(id).orElseThrow(() -> new PautaNotFoundException(id));
+    @GetMapping("/contabilizarVotos/{pautaId}")
+    public ResponseEntity<ResultadoPautaDTO> resultadoPauta(@PathVariable Long pautaId) {
+
+        Optional<Pauta> pautaEncontrada =  pautas.findById(pautaId);
+        if(pautaEncontrada == null){
+            pautas.findById(pautaId).orElseThrow(() -> new PautaNotFoundException(pautaId));
+        }
+
+        ResultadoPautaDTO resultadoPauta = new ResultadoPautaDTO();
+        resultadoPauta.setPautaId(pautaId);
+        resultadoPauta.setVotosAFavor(associados.totalResults("Sim", pautaId));
+        resultadoPauta.setVotosContra(associados.totalResults("Não", pautaId));
+
+        return new ResponseEntity<ResultadoPautaDTO>(resultadoPauta,HttpStatus.OK);
     }
 
     /**
