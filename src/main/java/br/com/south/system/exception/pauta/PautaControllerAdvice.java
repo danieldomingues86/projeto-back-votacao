@@ -1,6 +1,5 @@
 package br.com.south.system.exception.pauta;
 
-import br.com.south.system.exception.voto.VotoAlreadyDoneException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,6 +13,13 @@ public class PautaControllerAdvice {
     @ExceptionHandler(PautaNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String pautaNotFoundHandler(PautaNotFoundException ex) {
+        return ex.getMessage();
+    }
+
+    @ResponseBody
+    @ExceptionHandler(PautaRecordException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String pautaRecordHandler(PautaRecordException ex) {
         return ex.getMessage();
     }
 

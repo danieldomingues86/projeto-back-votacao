@@ -9,6 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * Serviço de integração com API externa de validação de CPF.
+ * Permite verificar se o CPF do Associado é valido e se está apto ou não para votação.
+ */
+
 @Service
 public class CPFIntegrationService {
 

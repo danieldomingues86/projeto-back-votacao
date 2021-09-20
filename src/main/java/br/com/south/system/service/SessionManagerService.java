@@ -15,7 +15,7 @@ import java.util.Optional;
 /**
  * Serviço responsável por gerenciar uma sessão de votação em uma pauta.
  * A sessão de votação fica aberta por um tempo determinado através da API de ativação
- * esse tempo é pré-configurado no arquivo application.properties do Spring;
+ * esse tempo é pré-configurado no arquivo application.properties do Spring
  */
 
 @Service

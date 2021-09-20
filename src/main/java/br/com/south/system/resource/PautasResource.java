@@ -46,8 +46,7 @@ public class PautasResource {
     private CPFIntegrationService cpfIntegrationService;
 
     /**
-     * Método responsável por permitir cadastrar uma nova pauta
-     * na base de dados
+     * Método responsável por permitir cadastrar uma nova pauta na base de dados
      * @param pauta
      */
 
@@ -134,6 +133,12 @@ public class PautasResource {
 
         return false;
     }
+
+    /**
+     * Método responsável por contabilizar os resutlados da votação de um pauta.
+     * @param pautaId
+     * @return
+     */
 
     @GetMapping("/contabilizarVotos/{pautaId}")
     public ResponseEntity<ResultadoPautaDTO> resultadoPauta(@PathVariable Long pautaId) {
