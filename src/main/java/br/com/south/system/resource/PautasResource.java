@@ -1,6 +1,7 @@
 package br.com.south.system.resource;
 
 import br.com.south.system.dto.ResultadoPautaDTO;
+import br.com.south.system.exception.pauta.PautaClosedException;
 import br.com.south.system.exception.pauta.PautaMalFormedException;
 import br.com.south.system.exception.pauta.PautaNotFoundException;
 import br.com.south.system.exception.pauta.PautaNotInformedException;
@@ -10,6 +11,7 @@ import br.com.south.system.model.Associado;
 import br.com.south.system.model.Pauta;
 import br.com.south.system.repository.Associados;
 import br.com.south.system.repository.Pautas;
+import br.com.south.system.service.SessionManagerService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +40,9 @@ public class PautasResource {
 
     @Autowired
     private Associados associados;
+
+    @Autowired
+    private SessionManagerService sessionManagerService;
 
     /**
      * Método responsável por permitir cadastrar uma nova pauta
@@ -80,21 +85,31 @@ public class PautasResource {
             pautas.findById(pautaId).orElseThrow(() -> new PautaNotFoundException(pautaId));
         }
 
-        if(associado.getCpf() == null || StringUtils.isEmpty(associado.getVoto())){
-            throw new VotoMalFormedException();
+
+        if(pautaEncontrada.get().isAtiva()){
+
+            log.info("Pauta " + pautaId + " + está aberta para votação");
+
+            if(associado.getCpf() == null || StringUtils.isEmpty(associado.getVoto())){
+                throw new VotoMalFormedException();
+            }
+
+            boolean associadoJaVotouNaPauta = associadoJaVotouNessaPauta(pautaEncontrada.get(), associado);
+
+            if(associadoJaVotouNaPauta){
+                throw new VotoAlreadyDoneException();
+            }
+
+            associado.setPauta(pautaEncontrada.get());
+            associados.save(associado);
+            log.info("Voto do associado: " + associado.getCpf() + " na pauta: " + pautaId + " confirmado!");
+
+            return new ResponseEntity<>("Voto do associado: " + associado.getCpf() + " na pauta: " + pautaId + " confirmado!", generateHttpHeader(), HttpStatus.OK);
+
+        }else{
+            log.info("Pauta " + pautaId + " + está fechada para votação");
+            throw new PautaClosedException();
         }
-
-        boolean associadoJaVotouNaPauta = associadoJaVotouNessaPauta(pautaEncontrada.get(), associado);
-
-        if(associadoJaVotouNaPauta){
-            throw new VotoAlreadyDoneException();
-        }
-
-        associado.setPauta(pautaEncontrada.get());
-        associados.save(associado);
-        log.info("Voto do associado: " + associado.getCpf() + " na pauta: " + pautaId + " confirmado!");
-
-        return new ResponseEntity<>("Voto do associado: " + associado.getCpf() + " na pauta: " + pautaId + " confirmado!", generateHttpHeader(), HttpStatus.OK);
     }
 
     /**
@@ -142,6 +157,15 @@ public class PautasResource {
     }
 
 
-
+    /**
+     * Método responsável por tornar uma pauta ativa por um tempo pré-determinado.
+     * @param pautaId
+     * @throws InterruptedException
+     *
+     */
+    @GetMapping("/ativarPauta/{pautaId}")
+    public void ativarPauta(@PathVariable Long pautaId) throws InterruptedException {
+        sessionManagerService.startPautaSession(pautaId);
+    }
 
 }

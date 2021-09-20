@@ -17,15 +17,12 @@ public class VotoControllerAdvice {
         return ex.getMessage();
     }
 
-
     @ResponseBody
     @ExceptionHandler(VotoAlreadyDoneException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String votoAlreadyDoneHandler(VotoAlreadyDoneException ex) {
         return ex.getMessage();
     }
-
-
 
 }
 

@@ -6,9 +6,7 @@ public class HTTPUtils {
 
     public static HttpHeaders generateHttpHeader(){
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Custom-Header", "foo");
+        headers.add("Custom-Header", "header");
         return headers;
     }
-
-
 }

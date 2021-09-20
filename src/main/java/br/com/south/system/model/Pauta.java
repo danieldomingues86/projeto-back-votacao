@@ -27,6 +27,8 @@ public class Pauta {
 	@OneToMany(mappedBy = "pauta", cascade = CascadeType.ALL)
 	private List<Associado> associados = new ArrayList<>();
 
+	private boolean ativa;
+
 	public Long getId() {
 		return id;
 	}
@@ -49,5 +51,13 @@ public class Pauta {
 
 	public void setAssociados(List<Associado> associados) {
 		this.associados = associados;
+	}
+
+	public boolean isAtiva() {
+		return ativa;
+	}
+
+	public void setAtiva(boolean ativa) {
+		this.ativa = ativa;
 	}
 }
