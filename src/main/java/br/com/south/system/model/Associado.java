@@ -1,11 +1,11 @@
 package br.com.south.system.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * Entidade Responsável por armazenar os dados de um Associado no sistema de Votação.
@@ -19,11 +19,15 @@ public class Associado {
 	@GenericGenerator(name = "increment", strategy = "increment")
 	private Long id;
 	
-	@NotBlank
-	private String cpf;
+	@NotNull
+	private Long cpf;
 
 	@NotBlank
 	private String voto;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnore
+	private Pauta pauta;
 
 	public Long getId() {
 		return id;
@@ -33,11 +37,11 @@ public class Associado {
 		this.id = id;
 	}
 
-	public String getCpf() {
+	public Long getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(String cpf) {
+	public void setCpf(Long cpf) {
 		this.cpf = cpf;
 	}
 
@@ -47,5 +51,13 @@ public class Associado {
 
 	public void setVoto(String voto) {
 		this.voto = voto;
+	}
+
+	public Pauta getPauta() {
+		return pauta;
+	}
+
+	public void setPauta(Pauta pauta) {
+		this.pauta = pauta;
 	}
 }
