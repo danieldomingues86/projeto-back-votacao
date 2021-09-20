@@ -1,5 +1,17 @@
 ###### Desafio Técnico - Back-End Projeto de Votação
 
+**Acessos & Arquivos**
+
+Caminho do projeto na Nuvem (Heroku)
+https://projeto-back-votos-api.herokuapp.com/
+
+Caminho do GIT (projeto-back-votacao)
+https://github.com/danieldomingues86/projeto-back-votacao
+
+JSON criado para facilitar as chamadas das APIs do projeto: api_calls.postman_collection (arquivo encontra-se no GIT junto ao projeto)
+Softwares utilizados para os testes das chamadas: Google Chrome & Postman
+
+
 **Organização do código**
 
 O Código foi devidamente organizado em pacotes (models que representam as entidades que são utilizadas dentro do sistema), 
