@@ -5,7 +5,8 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * Entidade que corresponde a uma Pauta (Assunto) na qual será tratado durante a votação.
@@ -19,7 +20,8 @@ public class Pauta {
 	@GenericGenerator(name = "increment", strategy = "increment")
 	private Long id;
 	
-	@NotBlank
+	@NotNull
+	@NotEmpty
 	private String assunto;
 
 
