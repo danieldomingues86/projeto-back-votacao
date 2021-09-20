@@ -41,3 +41,24 @@ Métodos e classes principais foram documentadas dentro do código em seus respe
 o entendimento dos objetivos da aplicação.
 
 
+**Referente ao Bônus 4: Como você versionaria a API da sua aplicação? Que estratégia usar?**
+
+Por ser uma aplicação simples em termos de estrutura e de modelagem uma simples estrutura na criação de branchs solucionaria o versionamento da mesma.
+Outro fator que pode ser lembrado e adotado como boa prática é a mudança do <version> no pom.xml nas principais mudanças no projeto.
+
+Por exemplo no git pode-se começar com uma branch master e criar uma branch develop que será espelho da master:
+ 
+            /votacao-api  (master)
+            /votacao-api  (develop) 
+
+Através desta (da develop) começa-se o desenvolvimento, assim a cada nova feature cria-se um nome padronizado onde cada desenvolvedor irá atuar, 
+uma vez a feature desenvolvida e testada localmente faz-se o merge para a develop para mante-lá atualizada contendo todas as features desenvolvidas. 
+Dessa forma, para cada nova funcionalidade a ser desenvolvida é baixada a develop e criado uma nova branch da mesma, e assim por diante.
+Exemplos: 
+
+           /cadastrar-pauta
+           /gravar-voto
+           /retorar-votos-pauta
+
+O Código é mergeado de tempos e tempos na develop (conforme definição estipulada) e quando a develop estiver pronta pode ser fazer o deploy dela em um ambiente de testes 
+(homolodação) e quando estiver tudo certo e testado, o código é promovido para a master e feito o deploy em um ambiente de produção.
