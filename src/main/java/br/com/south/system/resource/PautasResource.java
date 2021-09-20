@@ -1,16 +1,14 @@
 package br.com.south.system.resource;
 
 import br.com.south.system.dto.ResultadoPautaDTO;
-import br.com.south.system.exception.pauta.PautaClosedException;
-import br.com.south.system.exception.pauta.PautaMalFormedException;
-import br.com.south.system.exception.pauta.PautaNotFoundException;
-import br.com.south.system.exception.pauta.PautaNotInformedException;
+import br.com.south.system.exception.pauta.*;
 import br.com.south.system.exception.voto.VotoAlreadyDoneException;
 import br.com.south.system.exception.voto.VotoMalFormedException;
 import br.com.south.system.model.Associado;
 import br.com.south.system.model.Pauta;
 import br.com.south.system.repository.Associados;
 import br.com.south.system.repository.Pautas;
+import br.com.south.system.service.CPFIntegrationService;
 import br.com.south.system.service.SessionManagerService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -43,6 +41,9 @@ public class PautasResource {
 
     @Autowired
     private SessionManagerService sessionManagerService;
+
+    @Autowired
+    private CPFIntegrationService cpfIntegrationService;
 
     /**
      * Método responsável por permitir cadastrar uma nova pauta
@@ -94,9 +95,12 @@ public class PautasResource {
                 throw new VotoMalFormedException();
             }
 
-            boolean associadoJaVotouNaPauta = associadoJaVotouNessaPauta(pautaEncontrada.get(), associado);
+            boolean cpfValido = cpfIntegrationService.validateCPF(associado.getCpf());
+            if(!cpfValido){
+                throw new CPFInvalidoException();
+            }
 
-            if(associadoJaVotouNaPauta){
+            if(associadoJaVotouNessaPauta(pautaEncontrada.get(), associado)){
                 throw new VotoAlreadyDoneException();
             }
 

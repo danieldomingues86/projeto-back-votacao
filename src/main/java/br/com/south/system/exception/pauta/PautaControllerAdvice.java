@@ -38,4 +38,18 @@ public class PautaControllerAdvice {
         return ex.getMessage();
     }
 
+    @ResponseBody
+    @ExceptionHandler(CPFInvalidoException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String cpfInvalidoHandler(CPFInvalidoException ex) {
+        return ex.getMessage();
+    }
+
+    @ResponseBody
+    @ExceptionHandler(CPFNotAllowedToVoteException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String cpfNotAllowedToVoteHandler(CPFNotAllowedToVoteException ex) {
+        return ex.getMessage();
+    }
+
 }
